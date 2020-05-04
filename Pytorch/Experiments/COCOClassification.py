@@ -1,0 +1,1 @@
+exp_name = "RN50-SGD-CyclicLR-Classification-COCO"

@@ -15,13 +15,11 @@ from torchtrainer.callbacks.settqdmbardescription import SetTQDMBarDescription
 from torchtrainer.callbacks.lrbatchschedulercallback import LRBatchSchedulerCallBack
 
 def main():
-    exp_name = "RN50-SGD-CyclicLR-Patch-Benedettini-DA"
-    epochs = 200
+    exp_name = "RN50-SGD-CyclicLR-Patch-COCO-DA"
+    epochs = 60
     batch_size = 10
     num_batch_train = 200
     num_batch_val = 80
-    #lr = 0.005
-    #momentum = 0.6
     parameters_path = path.join("parameters", exp_name)
     plots_path = path.join("plots", exp_name)
 
