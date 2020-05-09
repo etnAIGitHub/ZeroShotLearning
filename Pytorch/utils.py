@@ -8,6 +8,13 @@ from PIL import Image
 def clamp(value, min_value, max_value):
     return max(min(value, max_value), min_value)
 
+def Bbox_clamp(bbox, image_width, image_height):
+    item_bbox = bbox.copy()
+    item_bbox[0] = clamp(item_bbox[0], 0, image_width)
+    item_bbox[1] = clamp(item_bbox[1], 0, image_height)
+    item_bbox[2] = clamp(item_bbox[2], 0, image_width-item_bbox[0])
+    item_bbox[3] = clamp(item_bbox[3], 0, image_height-item_bbox[1])
+    return item_bbox
 
 def Resize_image_with_padding(PIL_image, desired_size=240):
     image_size = PIL_image.size  # PIL_image_size is in (width, height) format
