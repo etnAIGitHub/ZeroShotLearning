@@ -1,14 +1,16 @@
 import torch
-from torchvision.models import resnet50, resnet101
+from torchvision.models import resnet50
 from torchvision.ops import RoIPool
 from torchvision.ops import RoIAlign
 
 class M_ROI_CLASSIFIER(torch.nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, num_classes, backbone=None):
         super(M_ROI_CLASSIFIER, self).__init__()
 
         self.num_classes = num_classes
-        M_backbone = resnet50(pretrained=True, replace_stride_with_dilation=[True, True, True])
+        M_backbone = backbone
+        if M_backbone is None:
+            M_backbone = resnet50(pretrained=True, replace_stride_with_dilation=[True, True, True])
 
         M_conv_ = torch.nn.Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
         M_batchn_ = torch.nn.BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
