@@ -10,7 +10,7 @@ class M_ROI_CLASSIFIER(torch.nn.Module):
         self.num_classes = num_classes
         M_backbone = backbone
         if M_backbone is None:
-            M_backbone = resnet50(pretrained=True, replace_stride_with_dilation=[True, True, True])
+            M_backbone = resnet50(pretrained=True, replace_stride_with_dilation=[False, True, True])
 
         M_conv_ = torch.nn.Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
         M_batchn_ = torch.nn.BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
@@ -32,9 +32,9 @@ class M_ROI_CLASSIFIER(torch.nn.Module):
             M_custom_layer
         )
 
-        self.M_roi_align = RoIAlign(output_size=(7, 7), spatial_scale=1, sampling_ratio=-1)
+        self.M_roi_align = RoIAlign(output_size=(5, 5), spatial_scale=1, sampling_ratio=-1)
         self.M_flatten = torch.nn.Flatten()
-        self.M_classifier = torch.nn.Linear(in_features=25088, out_features=self.num_classes, bias=True)
+        self.M_classifier = torch.nn.Linear(in_features=12800, out_features=self.num_classes, bias=True)
 
     def forward(self, inputs):
         """
